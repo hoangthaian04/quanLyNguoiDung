@@ -1,5 +1,6 @@
 package com.example.quanlyNguoiDung.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -7,9 +8,16 @@ import jakarta.persistence.Id;
 public class User {
     @Id
     private String username;
+    
+    @Column(nullable = false)
     private String password;
+    
+    @Column(nullable = false)
     private String hoTen;
+    
+    @Column(nullable = false, unique = true)
     private String email;
+    
     private String sdt;
     private String maNhom;
     private String loaiNguoiDung;
