@@ -2,6 +2,7 @@ package com.example.quanlyNguoiDung.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.quanlyNguoiDung.dto.request.UserCreationREquest;
 import com.example.quanlyNguoiDung.dto.request.UserUpdateRequest;
@@ -15,11 +16,16 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public User createUser(UserCreationREquest request){
         User user = new User();
 
         user.setUsername(request.getUsername());
-        user.setPassword(request.getPassword());
+
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
+        user.setPassword(encodedPassword);
         user.setHoTen(request.getHoTen());
         user.setEmail(request.getEmail());
         user.setSdt(request.getSdt());
@@ -32,7 +38,11 @@ public class UserService {
     public User updateUser(String userName, UserUpdateRequest request){
         User user = getUser(userName);
 
-        user.setPassword(request.getPassword());
+        if (request.getPassword() != null && !request.getPassword().isEmpty()) {
+            String encodedPassword = passwordEncoder.encode(request.getPassword());
+            user.setPassword(encodedPassword);
+        }
+
         user.setHoTen(request.getHoTen());
         user.setEmail(request.getEmail());
         user.setSdt(request.getSdt());
