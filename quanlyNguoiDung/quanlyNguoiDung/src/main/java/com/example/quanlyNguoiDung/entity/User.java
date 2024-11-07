@@ -3,23 +3,30 @@ package com.example.quanlyNguoiDung.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "user")
 public class User {
     @Id
     private String username;
-    
-    @Column(nullable = false)
+        
+    @Column(name = "password", nullable = false)
     private String password;
-    
-    @Column(nullable = false)
+        
+    @Column(name = "ho_ten", nullable = false)
     private String hoTen;
-    
-    @Column(nullable = false, unique = true)
+        
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
     
+    @Column(name = "sdt")
     private String sdt;
+
+    @Column(name = "ma_nhom")
     private String maNhom;
+
+    @Column(name = "loai_nguoi_dung")
     private String loaiNguoiDung;
 
     public String getUsername(){
