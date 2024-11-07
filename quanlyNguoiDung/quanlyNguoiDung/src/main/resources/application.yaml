@@ -1,7 +1,7 @@
 server:
-    port: 8080
-    servlet:
-        context-path: /users
+  port: 8080
+  servlet:
+    context-path: /users
 
 spring:
   datasource:
@@ -9,10 +9,15 @@ spring:
     username: root
     password: 123456789
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
   jpa:
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.hibernate: INFO
 
