@@ -50,6 +50,7 @@ public class UserService {
 
         return userRepository.save(user);
     }
+    // Thêm người dùng
 
     public User updateUser(String userName, UserUpdateRequest request){
         User user = getUser(userName);
@@ -73,32 +74,39 @@ public class UserService {
     if (request.getLoaiNguoiDung() != null && !request.getLoaiNguoiDung().trim().isEmpty()) {
         user.setLoaiNguoiDung(request.getLoaiNguoiDung());
     }
-
+    
     return userRepository.save(user);
     }
+    // Cập nhật thông tin người dùng
 
     public void deleteUser(String userName){
         userRepository.deleteById(userName);
     }
+    // Xóa người dùng
     
     public List<User> getUsers(){
         return userRepository.findAll();
     }
+    // Lấy danh sách người dùng
 
     public User getUser(String username){
         return userRepository.findById(username).orElseThrow(() -> new RuntimeException("User not found!"));
     }
+    // Tìm người dùng theo username
 
     public List<String> getDistinctUserTypes() {
         return userRepository.findDistinctUserTypes();
     }
+    // Lấy danh sách loại người dùng
     
     public Page<User> getUsers(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return userRepository.findAll(pageable);
     }
+    // Lấy danh sách người dùng phân trang
 
     public Page<User> searchUsers(String hoTen, String email, Pageable pageable) {
         return userRepository.findBySearchCriteria(hoTen, email, pageable);
     }
+    // Tìm người dùng phân trang
 }
