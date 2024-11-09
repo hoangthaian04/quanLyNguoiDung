@@ -1,6 +1,9 @@
 package com.example.quanlyNguoiDung.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -84,5 +87,18 @@ public class UserService {
 
     public User getUser(String username){
         return userRepository.findById(username).orElseThrow(() -> new RuntimeException("User not found!"));
+    }
+
+    public List<String> getDistinctUserTypes() {
+        return userRepository.findDistinctUserTypes();
+    }
+    
+    public Page<User> getUsers(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return userRepository.findAll(pageable);
+    }
+
+    public Page<User> searchUsers(String hoTen, String email, Pageable pageable) {
+        return userRepository.findBySearchCriteria(hoTen, email, pageable);
     }
 }
